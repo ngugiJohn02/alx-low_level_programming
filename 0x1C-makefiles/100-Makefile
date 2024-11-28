@@ -1,20 +1,18 @@
 #!/usr/bin/make -f
 
-# Compiler and flags
+# Variables
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -pedantic
-SRC = $(wildcard *.c)
-OBJ = $(SRC:.c=.o)
 NAME = school
 
-# Default rule
+# Rule to build the executable
 all: $(NAME)
 
 # Rule to create the executable
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+$(NAME): $(SRC:.c=.o)
+	$(CC) $(CFLAGS) $(SRC:.c=.o) -o $(NAME)
 
-# Rule to clean temporary files, executable
+# Rule to clean temporary files
 clean:
 	$(RM) $(SRC:.c=.d) $(OBJ)
 
@@ -29,5 +27,6 @@ fclean: clean
 # Rule to force recompilation
 re: fclean all
 
-# Ensure that the header file m.h exists
+# Include m.h to ensure it's present for compilation
 -include m.h
+
